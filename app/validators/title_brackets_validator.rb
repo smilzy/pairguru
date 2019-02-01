@@ -1,6 +1,6 @@
 class TitleBracketsValidator < ActiveModel::Validator
   def validate(record)
-    record.errors.add(:title, 'Błędny tytuł (niezrównoważone lub puste nawiasy)') unless check_brackets(record.title)
+    record.errors.add(:title, 'Wrong title (unmatched brackets)') unless check_brackets(record.title)
   end
 
   private
