@@ -3,4 +3,18 @@
     %h1.text-center Welcome to Pairguru App!
     %p.lead.text-center Place where we examine our candidates
 
-
+.row
+  .col-md-8.col-md-offset-2
+    - if @commenters.any?
+      .jumbotron
+        %h2.text-center Top commenters this week
+        %table
+          %thead
+            %tr
+              %th{ style: 'width: 50%;' } User
+              %th Comments count
+          %tbody
+            - @commenters.each do |user|
+              %tr
+                %td= user.dig('name')
+                %td= user.dig('comments_count')
