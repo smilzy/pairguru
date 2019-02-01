@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :movies, only: [:index, :show] do
     member do
       get :send_info
+      post :add_comment
+      delete :delete_comment
     end
     collection do
       get :export
