@@ -14,14 +14,13 @@
 
 class Movie < ApplicationRecord
   belongs_to :genre
+  has_many :comments, dependent: :destroy
 
   require 'net/http'
   require 'uri'
 
   BASE_URL  = 'https://pairguru-api.herokuapp.com'
   API_URL   = 'https://pairguru-api.herokuapp.com/api/v1/movies'
-
-  validates :title, title_brackets: true
 
   def api_data
     return @api_data if @api_data.present?
@@ -32,5 +31,4 @@ class Movie < ApplicationRecord
     puts "Response: #{json}"
     @api_data = json
   end
-
 end
