@@ -21,6 +21,8 @@ class Movie < ApplicationRecord
   BASE_URL  = 'https://pairguru-api.herokuapp.com'
   API_URL   = 'https://pairguru-api.herokuapp.com/api/v1/movies'
 
+  validates :title, title_brackets: true
+
   def api_data
     return @api_data if @api_data.present?
     uri   = URI.encode(API_URL + "/#{title}")
@@ -30,4 +32,5 @@ class Movie < ApplicationRecord
     puts "Response: #{json}"
     @api_data = json
   end
+
 end
