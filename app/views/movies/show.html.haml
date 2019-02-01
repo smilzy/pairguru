@@ -3,3 +3,16 @@
   = @movie.plot_overview
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
+  - unless @comment.persisted?
+    = form_for @comment, url: add_comment_movie_path(@movie) do |f|
+      = f.text_area :body, placeholder: 'Write your comment here'
+      = f.submit 'Add comment'
+      
+- if @movie.comments.any?
+  .jumbotron
+    %h2 Comments
+    - @movie.comments.each do |comment|
+      - if comment.user == current_user
+        = link_to 'X', delete_comment_movie_path(@movie), method: :delete, data: { confirm: 'Are you sure?' }, style: 'color: red;', title: 'Delete comment'
+      %strong= comment.user.name
+      %p= comment.body
